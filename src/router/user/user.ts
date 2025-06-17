@@ -17,6 +17,7 @@ userRouter.post("/createUser", (req: Request, res: Response) => {
   const { name, age, userName, userEmail, phoneNumber, password }: User =
     req.body;
   const uniqueId = nanoid();
+ 
   const filePath = "./user.json";
 
   let users: User[] = [];
@@ -42,14 +43,16 @@ userRouter.post("/createUser", (req: Request, res: Response) => {
   res.send("Succesfully created user");
 });
 
-userRouter.delete("/deleteUser", (req: Request, res: Response) => {
+userRouter.delete("/deletedUser", (req: Request, res: Response) => {
   const { userId } = req.body;
+  console.log (userId)
   const filePath = "./user.json";
   const existingData = fs.readFileSync(filePath, "utf8");
-  const filteredUser = JSON.parse(existingData).filter(
+  const deletedUser = JSON.parse(existingData).filter(
     (user: any) => user.userId !== userId
   );
-  fs.writeFileSync(filePath, JSON.stringify(filteredUser, null, 2));
+  console.log(deletedUser)
+  fs.writeFileSync(filePath, JSON.stringify(deletedUser, null, 2));
   res.json(`deleted user ${userId}`);
   // res.json (userId) gej bichsen ch bas bolno
 });
@@ -58,6 +61,7 @@ userRouter.put("/updateUser", (req: Request, res: Response) => {
   const { name, age, userId }: { name: string; age: number; userId: string } =
     req.body;
   const existingData = fs.readFileSync("./user.json", "utf8");
+  console.log (existingData)
   const updateUser = JSON.parse(existingData).map((user: any) => {
     if (user.userId == userId) {
       return { ...user, name: name, age: age };
