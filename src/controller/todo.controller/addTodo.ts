@@ -3,11 +3,11 @@ import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 
 import { readTodos, updateTodo } from "../../lib/todos";
-import { Todo } from "../../types/todo";
+
 
 export const addTodo = async (req: Request, res: Response) => {
   const { desc } = req.body;
-  let updatedTodos: Todo[] = [];
+
 
   const uniqueId = nanoid();
 
@@ -19,12 +19,13 @@ export const addTodo = async (req: Request, res: Response) => {
 
   const todos = await readTodos();
 
-  updatedTodos.push(todo);
+  const updatedAllTodos= [...todos,todo];
 
-  const isAddedTodos = await updateTodo(updatedTodos);
+
+  const isAddedTodos = await updateTodo(updatedAllTodos);
 
   if (isAddedTodos) {
-    res.json({ success: true, todos, message: "Successfully added todo" });
+    res.json({ success: true, updatedAllTodos, message: "Successfully added todo" });
   } else {
     res.json({ success: false, todos, message: "failed to add todo" });
   }

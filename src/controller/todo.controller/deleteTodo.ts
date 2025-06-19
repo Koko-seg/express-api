@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { readTodos, updateTodo } from "../../lib/todos";
 
 export const deleteTodo = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+  const { id } = req.params; // url (path) dr bichjiga tohioldold
+  // const { id } = req.body; //body dre id gaa bichih tohioldold
   const todos = await readTodos();
 
   const foundedTodo = todos.find((todo) => todo.id === id);
