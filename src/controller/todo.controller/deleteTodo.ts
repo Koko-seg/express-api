@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { getTodos, updateTodo } from "../../lib/todos";
+import { readTodos, updateTodo } from "../../lib/todos";
 
 export const deleteTodo = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const todos = await getTodos();
+  const todos = await readTodos();
 
   const foundedTodo = todos.find((todo) => todo.id === id);
 

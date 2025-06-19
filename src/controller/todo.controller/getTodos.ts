@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
-
-import fs from "fs-extra";
+import { readTodos } from "../../lib/todos";
 
 export const getTodos = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
+  const todos = await readTodos();
   res.status(200).json(todos);
 };

@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 
 import { nanoid } from "nanoid";
 
-import fs from "fs-extra";
+import { readTodos, updateTodo } from "../../lib/todos";
 import { Todo } from "../../types/todo";
-import { getTodos, updateTodo } from "./deleteTodo";
 
 export const addTodo = async (req: Request, res: Response) => {
   const { desc } = req.body;
+  let updatedTodos: Todo[] = [];
 
   const uniqueId = nanoid();
 
@@ -17,9 +17,9 @@ export const addTodo = async (req: Request, res: Response) => {
     isComplete: false,
   };
 
-  const todos = await getTodos();
+  const todos = await readTodos();
 
-  const updatedTodos = [...todos, todo];
+  updatedTodos.push(todo);
 
   const isAddedTodos = await updateTodo(updatedTodos);
 

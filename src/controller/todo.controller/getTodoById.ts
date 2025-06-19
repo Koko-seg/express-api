@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { getTodos } from "../../lib/todos";
+import { readTodos } from "../../lib/todos";
 
 export const getTodoById = async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const todos = await getTodos();
+  const todos = await readTodos();
 
   const todo = todos.find((todo) => todo.id === id);
 

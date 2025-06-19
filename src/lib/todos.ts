@@ -1,11 +1,9 @@
 import fs from "fs";
 import { Todo } from "../types/todo";
 
-export const getTodos = async () => {
+export const readTodos = async () => {
   try {
-    const todos = await fs.promises.readFile("./src/db/todos.json", {
-      encoding: "utf8",
-    });
+    const todos = await fs.promises.readFile("./todos.json", "utf8");
 
     return JSON.parse(todos) as Todo[];
   } catch (error) {
@@ -18,7 +16,7 @@ export const updateTodo = async (todos: Todo[]) => {
   try {
     const stringifyTodos = JSON.stringify(todos, null, 2);
 
-    fs.writeFileSync("./src/db/todos.json", stringifyTodos);
+    fs.writeFileSync("./todos.json", stringifyTodos);
 
     return true;
   } catch (error) {
