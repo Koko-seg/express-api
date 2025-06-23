@@ -30,7 +30,8 @@ app.get("/", async (req: Request, res: Response) => {
   // const db = client.db("sample_mflix");
 
   //tuhain db d bga collectioniig bichij ugnu
-  const responses = db.collection("users").find();
+  const responses = db.collection("usersTest").find();
+ 
   //response array bolgoj huwirgana
   const users = await responses.toArray();
   res.json(users);
@@ -45,6 +46,30 @@ app.post("/addUser", async (req: Request, res: Response) => {
     console.log(error);
   }
 });
+
+app.post ("/addManyUser", async (req:Request, res:Response)=> {
+  try {
+    const {name,age} =req.body
+    const response= db.collection ("usersTest").insertMany ([{name, age}])
+    res.json ((await response).insertedIds)
+    // res.json (response)
+    // console.log ("Julie", response) // ene heseg dr mdehgu baahan um irsen
+  }catch (error) {
+    console.log (error)
+  }
+})
+
+app.put ("/changeUser", async (req:Request, res:Response)=> {
+  try {
+    // const {name,age} =req.body
+    const response= db.collection ("usersTest").updateOne ({name :"Julie"}, {$set:{age:20}})
+    res.json ((await response))
+ 
+  
+  }catch (error) {
+    console.log (error)
+  }
+})
 
 app.listen(port, async () => {
   await connectDb();
