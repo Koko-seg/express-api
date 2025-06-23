@@ -3,8 +3,7 @@ import { Todo } from "../types/todo";
 
 export const readTodos = async () => {
   try {
- 
-    const todos=await fs.promises.readFile("./todos.json", "utf8");
+    const todos = await fs.promises.readFile("./todos.json", "utf8");
 
     return JSON.parse(todos) as Todo[];
   } catch (error) {
@@ -17,7 +16,7 @@ export const updateTodo = async (todos: Todo[]) => {
   try {
     const stringifyTodos = JSON.stringify(todos, null, 2);
 
-     await fs.promises.writeFile("./todos.json", stringifyTodos)
+    await fs.promises.writeFile("./todos.json", stringifyTodos);
 
     return true;
   } catch (error) {
