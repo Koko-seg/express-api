@@ -1,23 +1,22 @@
 import express from "express";
 
-import { addTodo } from "../../controller/todo.controller/addTodo";
-import { getTodoById } from "../../controller/todo.controller/getTodoById";
 import { deleteTodo } from "../../controller/todo.controller/deleteTodo";
-import { getTodos } from "../../controller/todo.controller/getTodos";
+
+import { addTodo } from "../../controller/todo.controller/addTodo";
+import { getTodo } from "../../controller/todo.controller/getTodos";
+import { getTodoById } from "../../controller/todo.controller/getTodoById";
 import { updateTodo } from "../../controller/todo.controller/updateTodo";
 
 const todoRouter = express.Router();
 
-todoRouter.get("/", getTodos);
+todoRouter.get("/getTodo", getTodo);
 
-todoRouter.post("/", addTodo);
+todoRouter.post("/addTodo", addTodo);
 
-todoRouter.get("/:id", getTodoById);
+todoRouter.get("/getTodoById/:id", getTodoById);
 
-todoRouter.delete("/:id", deleteTodo);
+todoRouter.delete("/deleteTodo/:id", deleteTodo);
 
-// todoRouter.delete("/", deleteTodo); // id gaa req.body gj awsan tohioldold
-
-todoRouter.put("/:id",updateTodo )
+todoRouter.put("/updateTodo/:id", updateTodo);
 
 export default todoRouter;
